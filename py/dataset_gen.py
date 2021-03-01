@@ -10,9 +10,7 @@ IMAGES = [
 
 TRAIN_INFO = "../../data/train_info.csv"
 
-RANDOM_SEED = 6666
-
-
+RSEED = 6666
 
 def gather_avaiable_images(target_folder:list):
     """
@@ -35,7 +33,6 @@ def generate_sample(r1, r2, is_same):
             int(is_same))
 
 
-
 def generate_dataset(filename, train_info, size = 10000, possitive=0.5):
 
     assert (possitive > 0) and (possitive < 1)
@@ -56,17 +53,17 @@ def generate_dataset(filename, train_info, size = 10000, possitive=0.5):
 
     #Choose positive sample
     positive_artist = count_table[count_table["size"] > 1]\
-                        .sample(positive_size, replace=True, random_state=1234)["artist"]
+                        .sample(positive_size, replace=True, random_state=RSEED)["artist"]
 
     for artist in positive_artist:
         select = df[df.artist == artist].\
-            sample(2, replace=False, random_state=1234)
+            sample(2, replace=False, random_state=RSEED)
         samples.append(generate_sample(select.iloc[0], select.iloc[1], True))
 
     #Choose negative sample
 
     for i in range(0, negative_size):
-        negative_artist = count_table.sample(2, replace=True, random_state=1234)["artist"]
+        negative_artist = count_table.sample(2, replace=True, random_state=RSEED)["artist"]
         select1 = df[df.artist == negative_artist.iloc[0]]. \
             sample(1, replace=False, random_state=1234)
         select2 = df[df.artist == negative_artist.iloc[1]]. \
