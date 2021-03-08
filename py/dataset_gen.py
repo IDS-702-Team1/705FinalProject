@@ -2,6 +2,9 @@ from os.path import basename
 import glob
 import pandas as pd
 from sklearn.utils import shuffle
+import random
+
+random.seed(1234)
 
 IMAGES = [
     "../../data/train_1",
@@ -57,17 +60,20 @@ def generate_dataset(filename, train_info, size = 10000, possitive=0.5):
 
     for artist in positive_artist:
         select = df[df.artist == artist].\
-            sample(2, replace=False, random_state=RSEED)
+            sample(2, replace=False, random_state=random.randint(0, 10000))
         samples.append(generate_sample(select.iloc[0], select.iloc[1], True))
 
     #Choose negative sample
 
     for i in range(0, negative_size):
-        negative_artist = count_table.sample(2, replace=True, random_state=RSEED)["artist"]
+        negative_artist = count_table.sample(2, replace=True, random_state=random.randint(0, 10000))["artist"]
+
+
+
         select1 = df[df.artist == negative_artist.iloc[0]]. \
-            sample(1, replace=False, random_state=1234)
+            sample(1, replace=False, random_state=random.randint(0, 10000))
         select2 = df[df.artist == negative_artist.iloc[1]]. \
-            sample(1, replace=False, random_state=1234)
+            sample(1, replace=False, random_state=random.randint(0, 10000))
 
         samples.append(generate_sample(select1.iloc[0], select2.iloc[0], False))
 
@@ -79,5 +85,6 @@ def generate_dataset(filename, train_info, size = 10000, possitive=0.5):
 
 if __name__ == '__main__':
 
-    generate_dataset("train_index.csv", TRAIN_INFO, size = 2000)
+    #generate_dataset("train_index.csv", TRAIN_INFO, size = 2000)
     generate_dataset("test_index.csv", TRAIN_INFO, size=300)
+    generate_dataset("min_index.csv", TRAIN_INFO, size=20)
