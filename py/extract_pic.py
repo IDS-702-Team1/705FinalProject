@@ -6,6 +6,7 @@ import pandas as pd
 
 
 def create_folder(path):
+
     try:
         os.mkdir(path)
     except OSError:
@@ -46,12 +47,6 @@ def extract_image_pair(train_file, output_folder):
 
         shutil.copyfile(row["img1"], "{}/{}_A.jpg".format(folder, ind))
         shutil.copyfile(row["img2"], "{}/{}_B.jpg".format(folder, ind))
-
-
-
-
-
-
 
 
 

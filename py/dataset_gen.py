@@ -3,13 +3,14 @@ import glob
 import pandas as pd
 from sklearn.utils import shuffle
 import random
+import os
 
 random.seed(1234)
 
 IMAGES = [
     "../../data/train_1",
-    "../../data/train_2",
-    "../../data/train_3"
+#    "../../data/train_2",
+#    "../../data/train_3"
 ]
 
 TRAIN_INFO = "../../data/train_info.csv"
@@ -85,8 +86,8 @@ def generate_dataset(filename, train_info, size = 10000, possitive=0.5):
     final_df.to_csv(filename, index=False)
 
 if __name__ == '__main__':
-    generate_dataset("test_200.csv", TRAIN_INFO, size=200)
-    generate_dataset("test_500.csv", TRAIN_INFO, size=500)
+    #generate_dataset("test_200.csv", TRAIN_INFO, size=200)
+    #generate_dataset("test_500.csv", TRAIN_INFO, size=500)
 
 
     #generate_dataset("train_index.csv", TRAIN_INFO, size = 2000)
@@ -95,6 +96,8 @@ if __name__ == '__main__':
     #generate_dataset("train_5000.csv", TRAIN_INFO, size=5000)
     #generate_dataset("train_10000.csv", TRAIN_INFO, size=10000)
     #generate_dataset("train_20000.csv", TRAIN_INFO, size=20000)
-    generate_dataset("train_50000.csv", TRAIN_INFO, size=50000)
+    #generate_dataset("train_50000.csv", TRAIN_INFO, size=50000)
+
+    generate_dataset("train_1000.csv", TRAIN_INFO, size=1000)
 
     #generate_dataset("min_index.csv", TRAIN_INFO, size=20)
