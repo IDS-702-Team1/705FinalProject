@@ -14,8 +14,15 @@ import glob
 
 IMAGES_FOLDERS = [
     "../../data/train_1",
-    #"../../data/train_2",
-    #"../../data/train_3"
+    "../../data/train_2",
+    "../../data/train_3",
+    "../../data/train_4",
+    "../../data/train_5",
+    "../../data/train_6",
+    "../../data/train_7",
+    "../../data/train_8",
+    "../../data/train_9",
+    "../../data/test",
 ]
 
 TARGET_AUTHOR = [
@@ -36,7 +43,7 @@ TARGET_AUTHOR = [
     "Camille Pissarro",
 ]
 
-AUTHOR_LIST = "../../data/all_data_info.csv"
+AUTHOR_LIST = "./all_data_info.csv"
 
 
 #======================================================================
@@ -123,6 +130,8 @@ def gen_features(model, output, aut_df, batch_size, img_size):
                                  re.sub(r"[\(,\)]", "_", str(img_size)),
                                  batch_size)
 
+    out_path = out_path.replace(" ", "")
+
     image_features = []
     author_name = []
     image_path = []
@@ -166,14 +175,12 @@ def gen_features(model, output, aut_df, batch_size, img_size):
 if __name__ == '__main__':
 
     OUTPUT = "./output"
-    IMG_RESIZE = (224, 224)
-    BATCH_SIZE = 20
+    IMG_RESIZE = (224,224)
+    BATCH_SIZE = 200
     #===================
 
     model = gen_model()
-
     author_df = gen_img_todo_list(AUTHOR_LIST)
-
     gen_features(model, OUTPUT, author_df, BATCH_SIZE, IMG_RESIZE)
 
 
