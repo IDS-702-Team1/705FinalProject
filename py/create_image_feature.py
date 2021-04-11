@@ -12,18 +12,7 @@ from os.path import basename
 import glob
 from multiprocessing import Pool
 
-# IMAGES_FOLDERS = [
-#     "../../data/train_1",
-#     "../../data/train_2",
-#     "../../data/train_3",
-#     "../../data/train_4",
-#     "../../data/train_5",
-#     "../../data/train_6",
-#     "../../data/train_7",
-#     "../../data/train_8",
-#     "../../data/train_9",
-#     "../../data/test",
-# ]
+
 
 TARGET_AUTHOR = [
     "Zd# islav Beksinski",
@@ -183,6 +172,7 @@ def gen_features(model, output, aut_df, batch_size, img_size, jidx=0):
                 image_features = []
                 author_name = []
                 image_path = []
+                genre_list = []
                 batch_index += 1
         except:
             print("Error img {}".format(row['new_filename']))
@@ -230,7 +220,15 @@ def gen_img_todo_list_by_folder(author_list, target_images):
 
 IMAGES_FOLDERS = [
     "../../data/train_1",
-#    "../../data/train_3"
+    "../../data/train_2",
+    "../../data/train_3",
+    "../../data/train_4",
+    "../../data/train_5",
+    "../../data/train_6",
+    "../../data/train_7",
+    "../../data/train_8",
+    "../../data/train_9",
+    "../../data/test",
 ]
 
 if __name__ == '__main__':
