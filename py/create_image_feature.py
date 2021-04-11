@@ -10,23 +10,23 @@ import regex as re
 import os
 from os.path import basename
 import glob
+from multiprocessing import Pool
 
-
-IMAGES_FOLDERS = [
-    "../../data/train_1",
-    "../../data/train_2",
-    "../../data/train_3",
-    "../../data/train_4",
-    "../../data/train_5",
-    "../../data/train_6",
-    "../../data/train_7",
-    "../../data/train_8",
-    "../../data/train_9",
-    "../../data/test",
-]
+# IMAGES_FOLDERS = [
+#     "../../data/train_1",
+#     "../../data/train_2",
+#     "../../data/train_3",
+#     "../../data/train_4",
+#     "../../data/train_5",
+#     "../../data/train_6",
+#     "../../data/train_7",
+#     "../../data/train_8",
+#     "../../data/train_9",
+#     "../../data/test",
+# ]
 
 TARGET_AUTHOR = [
-    "Zdislav Beksinski",
+    "Zd# islav Beksinski",
     "Ivan Aivazovsky",
     "Pablo picasso",
     "Ilya Repin",
@@ -46,12 +46,15 @@ TARGET_AUTHOR = [
 AUTHOR_LIST = "./all_data_info.csv"
 
 
+
 #======================================================================
 
-def gen_img_todo_list(author_list):
+def gen_img_todo_list_by_author(author_list):
     df = pd.read_csv(author_list)
-    df = df[df.artist.isin(TARGET_AUTHOR)][['artist', 'new_filename']]
+    df = df[df.artist.isin(TARGET_AUTHOR)][['artist', 'new_filename', 'genre']]
     return df
+
+
 
 def create_folder(path):
     try:
@@ -89,18 +92,23 @@ def __gen_feature(model, img, resize):
     return features.reshape(-1)
 
 
-def gather_avaiable_images(target_folder):
+def gather_avaiable_images(target_folder_list):
     """
     :param target_folder:
     :return: image file name list
     """
     targets = []
 
-    for target in target_folder:
+    for target in target_folder_list:
         imges = glob.glob(target + u"/*.jpg")
         targets.extend([(target, basename(x)) for x in imges])
 
-    return pd.DataFrame(data=targets, columns=["path", "filename"])
+    df = pd.DataFrame({
+        "filename": [x[1] for x in targets],
+        "path": [x[0] for x in targets],
+    })
+
+    return df
 
 
 
@@ -114,15 +122,19 @@ def find_img_path(img_name, avail_img_df):
         return "{}/{}".format(res.iloc[0]['path'], img_name)
 
 
-def save_to_batch_file(image_features, author_name, image_path, out_path, batch_index):
+
+
+def save_to_batch_file(image_features, author_name, image_path, genre_list, out_path, batch_index):
     out_df = pd.DataFrame().from_records(image_features)
     out_df["artist"] = author_name
     out_df["image"] = image_path
+    out_df["genre"] = genre_list
+
     out_file = '{}/{}.csv'.format(out_path, batch_index)
     out_df.to_csv(out_file, index=False, header=False, float_format='%.3f')
 
 
-def gen_features(model, output, aut_df, batch_size, img_size):
+def gen_features(model, output, aut_df, batch_size, img_size, jidx=0):
 
     out_path = gen_output_folder(output,
                                  model.name,
@@ -130,17 +142,21 @@ def gen_features(model, output, aut_df, batch_size, img_size):
                                  re.sub(r"[\(,\)]", "_", str(img_size)),
                                  batch_size)
 
-    out_path = out_path.replace(" ", "")
+    out_path = out_path.replace(" ", "").replace("__", "_")
+
+    create_folder(out_path)
 
     image_features = []
     author_name = []
     image_path = []
-    batch_index = 0
+    genre_list = []
+    batch_index = 1000 * jidx
     image_index = 0
 
     avail_img_df = gather_avaiable_images(IMAGES_FOLDERS)
 
-    for ind, row in tqdm(aut_df.iterrows(), total=aut_df.shape[0]):
+
+    for ind, row in tqdm(aut_df.iterrows(), total=aut_df.shape[0], desc="job {}".format(jidx)):
         try:
             img_path = find_img_path(row['new_filename'], avail_img_df)
 
@@ -148,18 +164,21 @@ def gen_features(model, output, aut_df, batch_size, img_size):
                 print("Can't find file {}".format(row['new_filename']))
                 continue
 
+            #print("Processing " + img_path)
+
             feature = __gen_feature(model, img_path, img_size)
 
             image_features.append(feature)
             author_name.append(row["artist"])
             image_path.append(row['new_filename'])
+            genre_list.append(row['genre'])
 
             image_index += 1
 
             # Batch process
             if image_index == batch_size:
                 image_index = 0
-                save_to_batch_file(image_features, author_name, image_path, out_path, batch_index)
+                save_to_batch_file(image_features, author_name, image_path, genre_list, out_path, batch_index)
 
                 image_features = []
                 author_name = []
@@ -169,8 +188,50 @@ def gen_features(model, output, aut_df, batch_size, img_size):
             print("Error img {}".format(row['new_filename']))
 
     if len(image_features) != 0:
-        save_to_batch_file(image_features, author_name, image_path, out_path, batch_index)
+        save_to_batch_file(image_features, author_name, image_path, genre_list, out_path, batch_index)
 
+def __gen_features(args):
+    output, aut_df, batch_size, img_size, jidx = args
+    model = gen_model()
+    gen_features(model, output, aut_df, batch_size, img_size, jidx)
+
+def split_dataframe_into_n_sub_dataframe(df, bin_number):
+    '''
+    Split An Dataframe to some sub dataframe,
+
+    from multiprocessing import Pool
+
+    p = Pool(job)
+    task_df = split_dataframe_into_n_sub_dataframe(df, job)
+    p.map(threadMethod, [(subdf, args) for subdf in task_df])
+
+    :param df:  Original dataframe
+    :param bin_number:  Split to how many sub arrays
+    :return: grouped
+    '''
+    grouped = df.groupby(df.index % bin_number)
+    return [grouped.get_group(i) for i in range(0, len(grouped)) ]
+
+
+
+
+def multi_process_gen_features(output, aut_df, batch_size, img_size, job=1):
+
+    p = Pool(job)
+    task_df = split_dataframe_into_n_sub_dataframe(aut_df, job)
+    p.map(__gen_features, [(output, subdf, batch_size, img_size, jidx) for jidx, subdf in enumerate(task_df)])
+
+
+def gen_img_todo_list_by_folder(author_list, target_images):
+    df = pd.read_csv(author_list)
+    df = df[df.new_filename.isin(target_images.filename)][['artist', 'new_filename', 'genre']]
+    return df
+
+
+IMAGES_FOLDERS = [
+    "../../data/train_1",
+#    "../../data/train_3"
+]
 
 if __name__ == '__main__':
 
@@ -179,10 +240,17 @@ if __name__ == '__main__':
     BATCH_SIZE = 200
     #===================
 
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+
+
+    multi_process_gen_features(OUTPUT, author_df, BATCH_SIZE, IMG_RESIZE, job=4)
+
+    '''
     model = gen_model()
     author_df = gen_img_todo_list(AUTHOR_LIST)
     gen_features(model, OUTPUT, author_df, BATCH_SIZE, IMG_RESIZE)
-
+    '''
 
 
 
