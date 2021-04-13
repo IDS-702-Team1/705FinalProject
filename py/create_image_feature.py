@@ -72,7 +72,7 @@ def gen_model(model = "vgg16", layer = "top"):
         return VGG16(weights="imagenet", include_top=False)
     elif model == "vgg16" and layer == 'layer1':
         base_model = VGG16(weights="imagenet")
-        model = Model(inputs = base_model.input, outputs = base_model.get_layer('block1_conv2').output)
+        model = Model(inputs = base_model.input, outputs = base_model.get_layer('block1_pool').output)
         return model
     else:
         print("Unsupport Model type")
