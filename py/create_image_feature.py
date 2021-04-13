@@ -10,7 +10,7 @@ import regex as re
 import os
 from os.path import basename
 import glob
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
 
 
 
@@ -66,11 +66,17 @@ def gen_output_folder(output, modle_name, layer_name, batch_size, img_size):
     return output_sub_folder
 
 
-def gen_model():
+def gen_model(model = "vgg16", layer = "top"):
 
-    # last layer
-    return VGG16(weights="imagenet", include_top=False)
-
+    if model == "vgg16" and layer == 'top':
+        return VGG16(weights="imagenet", include_top=False)
+    elif model == "vgg16" and layer == 'layer1':
+        base_model = VGG16(weights="imagenet")
+        model = Model(inputs = base_model.input, outputs = base_model.get_layer('block1_conv2').output)
+        return model
+    else:
+        print("Unsupport Model type")
+        raise Exception()
 
 def __gen_feature(model, img, resize):
     img = image.load_img(img, target_size=resize)
@@ -181,8 +187,8 @@ def gen_features(model, output, aut_df, batch_size, img_size, jidx=0):
         save_to_batch_file(image_features, author_name, image_path, genre_list, out_path, batch_index)
 
 def __gen_features(args):
-    output, aut_df, batch_size, img_size, jidx = args
-    model = gen_model()
+    output, aut_df, batch_size, img_size, jidx, model_type, model_layer = args
+    model = gen_model(model_type, model_layer)
     gen_features(model, output, aut_df, batch_size, img_size, jidx)
 
 def split_dataframe_into_n_sub_dataframe(df, bin_number):
@@ -205,11 +211,11 @@ def split_dataframe_into_n_sub_dataframe(df, bin_number):
 
 
 
-def multi_process_gen_features(output, aut_df, batch_size, img_size, job=1):
+def multi_process_gen_features(output, aut_df, batch_size, img_size, job=1, model_type = 'vgg16', model_layer = "top"):
 
     p = Pool(job)
     task_df = split_dataframe_into_n_sub_dataframe(aut_df, job)
-    p.map(__gen_features, [(output, subdf, batch_size, img_size, jidx) for jidx, subdf in enumerate(task_df)])
+    p.map(__gen_features, [(output, subdf, batch_size, img_size, jidx, model_type, model_layer) for jidx, subdf in enumerate(task_df)])
 
 
 def gen_img_todo_list_by_folder(author_list, target_images):
@@ -231,29 +237,29 @@ IMAGES_FOLDERS = [
     "../../data/test",
 ]
 
+
+def gen_vgg16_block5(output, image_size, batch_size, job):
+    # VGG16 top-layer
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='vgg16', model_layer="top")
+
+def gen_vgg16_block1(output, image_size, batch_size, job):
+    # VGG16 top-layer
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='vgg16', model_layer="layer1")
+
 if __name__ == '__main__':
 
     OUTPUT = "./output"
     IMG_RESIZE = (224,224)
     BATCH_SIZE = 200
+
+    job = cpu_count()
     #===================
 
-    target_images = gather_avaiable_images(IMAGES_FOLDERS)
-    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
-
-
-    multi_process_gen_features(OUTPUT, author_df, BATCH_SIZE, IMG_RESIZE, job=4)
-
-    '''
-    model = gen_model()
-    author_df = gen_img_todo_list(AUTHOR_LIST)
-    gen_features(model, OUTPUT, author_df, BATCH_SIZE, IMG_RESIZE)
-    '''
-
-
-
-
-
+    gen_vgg16_block1(OUTPUT, IMG_RESIZE, BATCH_SIZE, job)
 
 
 
