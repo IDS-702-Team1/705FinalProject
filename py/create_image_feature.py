@@ -175,10 +175,10 @@ def gen_features(model, output, aut_df, batch_size, img_size, jidx=0):
                 image_index = 0
                 save_to_batch_file(image_features, author_name, image_path, genre_list, out_path, batch_index)
 
-                image_features = []
-                author_name = []
-                image_path = []
-                genre_list = []
+                image_features.clear()
+                author_name.clear()
+                image_path.clear()
+                genre_list.clear()
                 batch_index += 1
         except:
             print("Error img {}".format(row['new_filename']))
