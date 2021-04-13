@@ -70,9 +70,9 @@ def gen_model(model = "vgg16", layer = "top"):
 
     if model == "vgg16" and layer == 'top':
         return VGG16(weights="imagenet", include_top=False)
-    elif model == "vgg16" and layer == 'layer1':
+    elif model == "vgg16" and layer == 'layer4':
         base_model = VGG16(weights="imagenet")
-        model = Model(inputs = base_model.input, outputs = base_model.get_layer('block1_pool').output)
+        model = Model(inputs = base_model.input, outputs = base_model.get_layer('block4_pool').output)
         return model
     else:
         print("Unsupport Model type")
@@ -244,11 +244,11 @@ def gen_vgg16_block5(output, image_size, batch_size, job):
     author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
     multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='vgg16', model_layer="top")
 
-def gen_vgg16_block1(output, image_size, batch_size, job):
+def gen_vgg16_block4(output, image_size, batch_size, job):
     # VGG16 top-layer
     target_images = gather_avaiable_images(IMAGES_FOLDERS)
     author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
-    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='vgg16', model_layer="layer1")
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='vgg16', model_layer="layer4")
 
 if __name__ == '__main__':
 
@@ -259,7 +259,7 @@ if __name__ == '__main__':
     job = cpu_count()
     #===================
 
-    gen_vgg16_block1(OUTPUT, IMG_RESIZE, BATCH_SIZE, job)
+    gen_vgg16_block4(OUTPUT, IMG_RESIZE, BATCH_SIZE, job)
 
 
 
