@@ -299,7 +299,7 @@ if __name__ == '__main__':
     IMG_RESIZE = (224,224)
     BATCH_SIZE = 100
 
-    output = gen_output_folder(OUTPUT, "m", "l", "224", IMG_RESIZE)
+    output = gen_output_folder(OUTPUT, "m", "l", BATCH_SIZE, 224)
 
     job = cpu_count()
 
