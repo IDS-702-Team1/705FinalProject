@@ -2,6 +2,11 @@ from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.models import Model
+from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.applications import VGG19
+from tensorflow.keras.applications import Xception
+
 from time import gmtime, strftime, strptime, localtime
 import numpy as np
 import pandas as pd
@@ -74,6 +79,14 @@ def gen_model(model = "vgg16", layer = "top"):
         base_model = VGG16(weights="imagenet")
         model = Model(inputs = base_model.input, outputs = base_model.get_layer('block4_pool').output)
         return model
+    if model == "ResNet50" and layer == 'top':
+        return ResNet50(weights="imagenet", include_top=False)
+    if model == "InceptionV3" and layer == 'top':
+        return InceptionV3(weights="imagenet", include_top=False)
+    if model == "VGG19" and layer == 'top':
+        return VGG19(weights="imagenet", include_top=False)
+    if model == "Xception" and layer == 'top':
+        return Xception(weights="imagenet", include_top=False)
     else:
         print("Unsupport Model type")
         raise Exception()
@@ -224,18 +237,7 @@ def gen_img_todo_list_by_folder(author_list, target_images):
     return df
 
 
-IMAGES_FOLDERS = [
-    "../../data/train_1",
-    "../../data/train_2",
-    "../../data/train_3",
-    "../../data/train_4",
-    "../../data/train_5",
-    "../../data/train_6",
-    "../../data/train_7",
-    "../../data/train_8",
-    "../../data/train_9",
-    "../../data/test",
-]
+
 
 
 def gen_vgg16_block5(output, image_size, batch_size, job):
@@ -250,16 +252,56 @@ def gen_vgg16_block4(output, image_size, batch_size, job):
     author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
     multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='vgg16', model_layer="layer4")
 
+def gen_res50(output, image_size, batch_size, job):
+    # VGG16 top-layer
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='ResNet50', model_layer="top")
+
+def gen_InceptionV3(output, image_size, batch_size, job):
+    # VGG16 top-layer
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='InceptionV3', model_layer="top")
+
+
+def gen_VGG19(output, image_size, batch_size, job):
+    # VGG16 top-layer
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='VGG19', model_layer="top")
+
+
+def gen_Xception(output, image_size, batch_size, job):
+    # VGG16 top-layer
+    target_images = gather_avaiable_images(IMAGES_FOLDERS)
+    author_df = gen_img_todo_list_by_folder(AUTHOR_LIST, target_images)
+    multi_process_gen_features(output, author_df, batch_size, image_size, job=job, model_type='Xception', model_layer="top")
+
+
+IMAGES_FOLDERS = [
+    "../../data/train_1",
+    "../../data/train_2",
+    "../../data/train_3",
+    "../../data/train_4",
+    "../../data/train_5",
+    "../../data/train_6",
+    "../../data/train_7",
+    "../../data/train_8",
+    "../../data/train_9",
+    "../../data/test",
+]
+
 if __name__ == '__main__':
 
     OUTPUT = "./output"
     IMG_RESIZE = (224,224)
-    BATCH_SIZE = 200
+    BATCH_SIZE = 100
 
     job = cpu_count()
     #===================
 
-    gen_vgg16_block4(OUTPUT, IMG_RESIZE, BATCH_SIZE, job)
+    gen_res50(OUTPUT, IMG_RESIZE, BATCH_SIZE, job)
 
 
 
