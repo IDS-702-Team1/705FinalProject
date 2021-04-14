@@ -66,6 +66,9 @@ def gen_output_folder(output, modle_name, layer_name, batch_size, img_size):
                            img_size,
                            batch_size,
                            strftime("%Y_%m_%d_%H_%M_%S", localtime()))
+
+    output_sub_folder = output_sub_folder.replace(" ", "").replace("__", "_")
+
     create_folder(output_sub_folder)
 
     return output_sub_folder
@@ -142,17 +145,15 @@ def save_to_batch_file(image_features, author_name, image_path, genre_list, out_
     out_df.to_csv(out_file, index=False, header=False, float_format='%.3f')
 
 
-def gen_features(model, output, aut_df, batch_size, img_size, jidx=0):
+def gen_features(model, out_path, aut_df, batch_size, img_size, jidx=0):
 
-    out_path = gen_output_folder(output,
-                                 model.name,
-                                 re.sub(r"[/:_]", "", model.output.name),
-                                 re.sub(r"[\(,\)]", "_", str(img_size)),
-                                 batch_size)
+    #out_path = gen_output_folder(output,
+    #                             model.name,
+    #                             re.sub(r"[/:_]", "", model.output.name),
+    #                             re.sub(r"[\(,\)]", "_", str(img_size)),
+    #                             batch_size)
 
-    out_path = out_path.replace(" ", "").replace("__", "_")
-
-    create_folder(out_path)
+    #out_path = out_path.replace(" ", "").replace("__", "_")
 
     image_features = []
     author_name = []
@@ -298,10 +299,13 @@ if __name__ == '__main__':
     IMG_RESIZE = (224,224)
     BATCH_SIZE = 100
 
+    output = gen_output_folder(OUTPUT, "m", "l", BATCH_SIZE, IMG_RESIZE)
+
     job = cpu_count()
+
     #===================
 
-    gen_res50(OUTPUT, IMG_RESIZE, BATCH_SIZE, job)
+    gen_res50(output, IMG_RESIZE, BATCH_SIZE, job)
 
 
 
