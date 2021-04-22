@@ -44,4 +44,11 @@ We chose these artists as they had a minimum of 500 paintings and represented th
 
 ### Model Architecture
 
+Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model where the CNN model would extract the painting features and the XGBoost Classifier would classify the paintings into the respective artist/style. Research Papers indicated that this hybrid model is 1) Computationally less expensive and 2) Produce similar/even better results than the original CNN model and hence we decided to use this model. 
+
+We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to extract image features. ResNet-50 is a convolutional neural network that is 50 layers deep while VGG-16 is a convolutional neural network that is 16 layers deep. 
+
+<Insert Model Architecture Diagram Here>
+  
+
 ###
