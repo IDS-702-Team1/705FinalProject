@@ -3,13 +3,13 @@
 This project aims to identify paintings by their respective artists and styles. 
 
 
-# Data
+## Data
 
 
-# Artist Classification
+## Artist Classification
 
-# Genre Classification
+## Genre Classification
 
-# Model Architecture
+## Model Architecture
 
-#
+##
