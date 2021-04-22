@@ -1,0 +1,10 @@
+pandas
+numpy
+xgb
+tensorflow
+keras
+tqdm
+multiprocessing
+glob
+sklearn
+shutil
