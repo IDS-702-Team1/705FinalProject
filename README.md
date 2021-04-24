@@ -8,6 +8,21 @@ This project aims to identify paintings by their respective artists and styles.
 We obtained the data from a Kaggle Competition (Painters by Numbers). The dataset consisted of over 100,000 paintings and was classified by the respective artist, genre, style and time period. 
 
 
+### Model Architecture
+
+Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model where the CNN model would extract the painting features and the XGBoost Classifier would classify the paintings into the respective artist/style. Research Papers indicated that this hybrid model is 1) Computationally less expensive and 2) Produce similar/even better results than the original CNN model and hence we decided to use this model. 
+
+We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to extract image features.
+VGG16 Model Architecture:
+
+![Screen Shot 2021-04-24 at 2 47 34 PM](https://user-images.githubusercontent.com/30974949/115969656-02cb4a80-a50c-11eb-8fc4-37770e8d1ddf.png)
+
+Resnet50 Model Architecture:
+
+![Screen Shot 2021-04-24 at 2 48 43 PM](https://user-images.githubusercontent.com/30974949/115969686-2bebdb00-a50c-11eb-816d-80c472057601.png)
+###
+
+
 ### Style Classification
 
 The styles we chose for this classification model ranged from the 1400s to 2000s. They were:
@@ -41,14 +56,3 @@ The artists we chose for this classification model were:
 12. Pablo Picasso
 
 We chose these artists as they had a minimum of 500 paintings and represented the 10 styles above.
-
-### Model Architecture
-
-Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model where the CNN model would extract the painting features and the XGBoost Classifier would classify the paintings into the respective artist/style. Research Papers indicated that this hybrid model is 1) Computationally less expensive and 2) Produce similar/even better results than the original CNN model and hence we decided to use this model. 
-
-We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to extract image features. ResNet-50 is a convolutional neural network that is 50 layers deep while VGG-16 is a convolutional neural network that is 16 layers deep. 
-
-![Screen Shot 2021-04-24 at 2 47 34 PM](https://user-images.githubusercontent.com/30974949/115969656-02cb4a80-a50c-11eb-8fc4-37770e8d1ddf.png)
-
-![Screen Shot 2021-04-24 at 2 48 43 PM](https://user-images.githubusercontent.com/30974949/115969686-2bebdb00-a50c-11eb-816d-80c472057601.png)
-###
