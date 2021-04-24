@@ -9,7 +9,7 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import plotting_metrics
 
 
-def plot_confusion_matrix(cf_matrix):
+def plot_confusion_matrix(cf_matrix,title,list_labels):
 
     #Confusion Matrix values are the percentage of datapoints that belongs to a cell for each row
     #The row values add up to 1
@@ -45,13 +45,9 @@ def plot_confusion_matrix(cf_matrix):
     plt.xlabel("Actual Style",size=20)
     plt.ylabel("Predicted Style",size=10)
 
-    plt.xticks(np.arange(10), ['Abstract', 'Art Nouveau', 'Baroque',
-                               ' Cubism', 'Expressionism', 'Impressionism','Realism', 'Renaissance',
-                               'Romanticism', 'Surrealism'],
-               fontsize=15,va='center')
-    plt.yticks(np.arange(10), ['Abstract', 'Art Nouveau', 'Baroque',
-                               ' Cubism', 'Expressionism', 'Impressionism','Realism', 'Renaissance',
-                               'Romanticism', 'Surrealism'],
+    plt.xticks(np.arange(len(list_labels)), list_labels,
+               fontsize=10,va='center')
+    plt.yticks(np.arange(len(list_labels)), list_labels,
                fontsize=10)
     plt.legend()
     plt.show()

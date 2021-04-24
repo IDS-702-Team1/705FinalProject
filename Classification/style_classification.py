@@ -29,7 +29,7 @@ def style_combination():
 
 
 
-def model_metrics(model,X_test,y_test):
+def model_metrics(model,X_test,y_test,model_counter):
 
     # make predictions for test data
     y_pred_test = model.predict(X_test)
@@ -39,28 +39,41 @@ def model_metrics(model,X_test,y_test):
     cm_vgg_style=confusion_matrix(y_test,y_pred_test)
 
     #Plot the Confusion Matrix (Heat Map)
-    plotting_metrics.plot_confusion_matrix(cm_vgg_style)
+    if model_counter==1:
+
+        title="Heat Map of VGG16 Painting Style Classification"
+    else:
+        title="Heat Map of ResNet50 Painting Style Classification"
+    list_labels=['Abstract', 'Art Nouveau', 'Baroque',
+                               ' Cubism', 'Expressionism', 'Impressionism','Realism', 'Renaissance',
+                               'Romanticism', 'Surrealism']
+
+    plotting_metrics.plot_confusion_matrix(cm_vgg_style,title,list_labels)
 
     #Plot the ROC Curve
     plotting_metrics.plot_roc(model,X_test,y_test)
 
 
 
-def model(X_train, X_test, y_train, y_test):
+def model(X_train, X_test, y_train, y_test,model_counter):
 
     model = XGBClassifier(n_estimators=250, n_jobs=-1)
     model.fit(X_train, y_train)
-    model_metrics(model,X_test,y_test)
+    model_metrics(model,X_test,y_test,model_counter)
 
 
 
 
 
 
-def main():
+if __name__ == "__main__":
 
     #VGG16
+    #If model_counter=1, then VGG16 model is built
+    model_counter=1
     #Import VGG16 Features
+
+
     chunk = pd.read_csv("complete_info_extracted_features.csv",chunksize=50000)
     pd_df = pd.concat(chunk)
 
@@ -76,6 +89,30 @@ def main():
     style_y=list(pd_dfa.iloc[:,25099])
 
     X_train, X_test, y_train, y_test = train_test_split(datax, style_y, test_size=0.33, stratify=style_y)
-    model(X_train, X_test, y_train, y_test)
+    model(X_train, X_test, y_train, y_test,model_counter)
 
     #ResNet50
+    #VGG=0 indicates that resnet is built
+    model_counter=0
+    #ResNet Data was in 4 folders, p1, p2, p3, p4.
+    #combined_csv1 consists of the combination of all csv files in p1
+    extension = 'csv'
+    all_filenames1 = [i for i in glob.glob('p1/*.{}'.format(extension))]
+    #combined_csv1 consists of the combination of all csv files in p1
+    combined_csv1 = pd.concat([pd.read_csv(f,header=None) for f in all_filenames1 ])
+
+    all_filenames2 = [i for i in glob.glob('p2/*.{}'.format(extension))]
+    #combined_csv2 consists of the combination of all csv files in p2
+    combined_csv2 = pd.concat([pd.read_csv(f,header=None) for f in all_filenames2 ])
+
+    all_filenames3 = [i for i in glob.glob('p3/*.{}'.format(extension))]
+    #combined_csv3 consists of the combination of all csv files in p3
+
+    combined_csv3 = pd.concat([pd.read_csv(f,header=None) for f in all_filenames3 ])
+
+    all_filenames4 = [i for i in glob.glob('p4/*.{}'.format(extension))]
+    #combined_csv4 consists of the combination of all csv files in p4
+    combined_csv4 = pd.concat([pd.read_csv(f,header=None) for f in all_filenames4 ])
+
+    #final dataset for ResNet50
+    final_res_data=pd.concat(combined_csv1,combined_csv2,combined_csv3,combined_csv4)

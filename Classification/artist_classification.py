@@ -34,16 +34,27 @@ def model_metrics(model,X_test,y_test):
     #Model Confusion Matrix
     cm_vgg_style=confusion_matrix(y_test,y_pred_test)
 
+
     #Plot the Confusion Matrix (Heat Map)
-    plotting_metrics.plot_confusion_matrix(cm_vgg_style)
+    if model_counter==1:
+
+        title="Heat Map of VGG16 Painting Artist Classification"
+    else:
+        title="Heat Map of ResNet50 Painting Artist Classification"
+
+    list_labels=['Albrecht Durer', 'Camille Pissarro','Gustave Dore','Ivan Aivazovsky', 'Ivan Shishkin', 'Marc Chagall', 'Martiros Saryan', 'Pablo Picasso',
+    'Pierre-Auguste Renoir', 'Rembrandt', 'Vincent van Gogh']
+    plotting_metrics.plot_confusion_matrix(cm_vgg_style,title,list_labels)
 
     #Plot the ROC Curve
     plotting_metrics.plot_roc(model,X_test,y_test)
 
 
 
+
 def model(X_train, X_test, y_train, y_test):
 
+    #XGB Model
     model = XGBClassifier(n_estimators=250, n_jobs=-1)
     model.fit(X_train, y_train)
     model_metrics(model,X_test,y_test)
@@ -51,9 +62,12 @@ def model(X_train, X_test, y_train, y_test):
 
 
 
-def main():
+if __name__ == "__main__":
 
     #VGG16
+
+    #If model_counter=1, then VGG16 model is built
+    model_counter=1
     #Import VGG16 Features
     chunk = pd.read_csv("complete_info_extracted_features.csv",chunksize=50000)
     pd_df = pd.concat(chunk)
@@ -70,7 +84,7 @@ def main():
     model(X_train, X_test, y_train, y_test)
 
     #ResNet50
-
+    model_counter=0
     #Loading the Dataset
     #data_res_art contains the resnet features dataset for artist classification
     counter=0
