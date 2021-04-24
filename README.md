@@ -5,7 +5,7 @@ This project aims to identify paintings by their respective artists and styles.
 
 ### Data
 
-We obtained the data from a Kaggle Competition (Painters by Numbers). The dataset consisted of over 100,000 paintings and was classified by the respective artist, genre, style and time period. 
+We obtained the data from a Kaggle Competition (Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consisted of over 100,000 paintings and was classified by the respective artist, genre, style and time period. 
 
 
 ### Model Architecture
@@ -56,3 +56,9 @@ The artists we chose for this classification model were:
 12. Pablo Picasso
 
 We chose these artists as they had a minimum of 500 paintings and represented the 10 styles above.
+
+### How to Use the Repo:
+Since the data is over 60 GB, we could not attach the data in this github repo. However, you may use the Kaggle Link to access the dataset.
+1) The Folder py consists of the code to extract features from the images via Resnet and VGG16. 
+2) The Folder notebooks consists of various Jupyter Notebooks that are used to load the features and classify paintings into Styles and Artists using XGBoost
+
