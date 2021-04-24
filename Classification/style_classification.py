@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = train_test_split(datax, style_y, test_size=0.33, stratify=style_y)
     model(X_train, X_test, y_train, y_test,model_counter)
-    '''
+
     #ResNet50
     #VGG=0 indicates that resnet is built
     model_counter=0
@@ -120,4 +120,3 @@ if __name__ == "__main__":
 
     #final dataset for ResNet50
     final_res_data=pd.concat(combined_csv1,combined_csv2,combined_csv3,combined_csv4)
-    '''

@@ -87,7 +87,6 @@ if __name__ == "__main__":
 
     model(X_train, X_test, y_train, y_test)
 
-    '''
     #ResNet50
     model_counter=0
     #Loading the Dataset
@@ -104,4 +103,3 @@ if __name__ == "__main__":
 
     X_traina1, X_testa1, y_traina1, y_testa1 = train_test_split(data_res_art.iloc[:,0:100351], data_res_art[100352], test_size=0.33, stratify=data_res_art[100352])
     model(X_traina1, X_testa1, y_traina1, y_testa1)
-    '''
