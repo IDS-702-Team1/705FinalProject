@@ -18,7 +18,7 @@ def model_metrics(model,X_test,y_test):
     y_pred_test = model.predict(X_test)
 
     #Model Classification Report
-    cr_vgg_style=classification_report(y_test, y_pred_test))
+    cr_vgg_style=classification_report(y_test, y_pred_test)
 
     #Model Confusion Matrix
     cm_vgg_style=confusion_matrix(y_test,y_pred_test)
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     'Rembrandt',
     'Pablo Picasso']
 
-    
+
     #VGG16
 
     #If model_counter=1, then VGG16 model is built
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     pd_df = pd.concat(chunk)
 
     #Subsetting the dataset by the 12 artists
-    pd_dfartists=pd_df[pd_df['artist'].isin(t_artists)
+    pd_dfartists=pd_df[pd_df['artist'].isin(t_artists)]
 
     #Contains the Artists label (Y in the model)
     df_art=list(pd_dfartists['artist'])
@@ -87,6 +87,7 @@ if __name__ == "__main__":
 
     model(X_train, X_test, y_train, y_test)
 
+    '''
     #ResNet50
     model_counter=0
     #Loading the Dataset
@@ -103,3 +104,4 @@ if __name__ == "__main__":
 
     X_traina1, X_testa1, y_traina1, y_testa1 = train_test_split(data_res_art.iloc[:,0:100351], data_res_art[100352], test_size=0.33, stratify=data_res_art[100352])
     model(X_traina1, X_testa1, y_traina1, y_testa1)
+    '''

@@ -34,7 +34,7 @@ def model_metrics(model,X_test,y_test,model_counter):
     # make predictions for test data
     y_pred_test = model.predict(X_test)
     #Model Classification Report
-    cr_vgg_style=classification_report(y_test, y_pred_test))
+    cr_vgg_style=classification_report(y_test, y_pred_test)
     #Model Confusion Matrix
     cm_vgg_style=confusion_matrix(y_test,y_pred_test)
 
@@ -56,7 +56,7 @@ def model_metrics(model,X_test,y_test,model_counter):
 
 
 def model(X_train, X_test, y_train, y_test,model_counter):
-
+    #XGB Model
     model = XGBClassifier(n_estimators=250, n_jobs=-1)
     model.fit(X_train, y_train)
     model_metrics(model,X_test,y_test,model_counter)
@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = train_test_split(datax, style_y, test_size=0.33, stratify=style_y)
     model(X_train, X_test, y_train, y_test,model_counter)
-
+    '''
     #ResNet50
     #VGG=0 indicates that resnet is built
     model_counter=0
@@ -120,3 +120,4 @@ if __name__ == "__main__":
 
     #final dataset for ResNet50
     final_res_data=pd.concat(combined_csv1,combined_csv2,combined_csv3,combined_csv4)
+    '''
