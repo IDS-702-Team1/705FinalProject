@@ -48,7 +48,7 @@ Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model
 
 We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to extract image features. ResNet-50 is a convolutional neural network that is 50 layers deep while VGG-16 is a convolutional neural network that is 16 layers deep. 
 
-<Insert Model Architecture Diagram Here>
-  
+![Screen Shot 2021-04-24 at 2 47 34 PM](https://user-images.githubusercontent.com/30974949/115969656-02cb4a80-a50c-11eb-8fc4-37770e8d1ddf.png)
+
 
 ###
