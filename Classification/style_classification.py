@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 from itertools import cycle
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import plotting_metrics
+import numpy as np
+import glob
 
 
-styles=['Northern Renaissance', 'Early Renaissance', 'Mannerism (Late Renaissance)' ,'High Renaissance','Baroque','Rococo',
- 'Romanticism','Realism', 'Impressionism', 'Post-Impressionism','Art Nouveau (Modern)', 'Expressionism', 'Surrealism', 'Cubism','Analytical Cubism',
- 'Synthetic Cubism', 'Abstract Art', 'Abstract Expressionism']
+
 
 
 #Function is used to merge smaller styles into its parent style
@@ -68,6 +68,10 @@ def model(X_train, X_test, y_train, y_test,model_counter):
 
 if __name__ == "__main__":
 
+
+    styles=['Northern Renaissance', 'Early Renaissance', 'Mannerism (Late Renaissance)' ,'High Renaissance','Baroque','Rococo',
+     'Romanticism','Realism', 'Impressionism', 'Post-Impressionism','Art Nouveau (Modern)', 'Expressionism', 'Surrealism', 'Cubism','Analytical Cubism',
+     'Synthetic Cubism', 'Abstract Art', 'Abstract Expressionism']
     #VGG16
     #If model_counter=1, then VGG16 model is built
     model_counter=1

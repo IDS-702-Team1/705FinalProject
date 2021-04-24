@@ -6,8 +6,7 @@ from scipy import interp
 import matplotlib.pyplot as plt
 from itertools import cycle
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
-import plotting_metrics
-
+import numpy as np
 
 def plot_confusion_matrix(cf_matrix,title,list_labels):
 

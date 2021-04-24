@@ -7,21 +7,10 @@ import matplotlib.pyplot as plt
 from itertools import cycle
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import plotting_metrics
-import glob
+import numpy as np
 
 
-t_artists=['Ivan Aivazovsky',
-'Marc Chagall',
-'Camille Pissarro',
-'Albrecht Durer',
-'Vincent Van Gogh',
-'Paul Cezanne',
-'Martiros Saryan',
-'Ivan Shishkin',
-'Gustave Dore',
-'Pierre-Auguste Renoir',
-'Rembrandt',
-'Pablo Picasso']
+
 
 def model_metrics(model,X_test,y_test):
 
@@ -64,6 +53,21 @@ def model(X_train, X_test, y_train, y_test):
 
 if __name__ == "__main__":
 
+
+    t_artists=['Ivan Aivazovsky',
+    'Marc Chagall',
+    'Camille Pissarro',
+    'Albrecht Durer',
+    'Vincent Van Gogh',
+    'Paul Cezanne',
+    'Martiros Saryan',
+    'Ivan Shishkin',
+    'Gustave Dore',
+    'Pierre-Auguste Renoir',
+    'Rembrandt',
+    'Pablo Picasso']
+
+    
     #VGG16
 
     #If model_counter=1, then VGG16 model is built
