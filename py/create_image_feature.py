@@ -297,15 +297,15 @@ if __name__ == '__main__':
 
     OUTPUT = "./output"
     IMG_RESIZE = (224,224)
-    BATCH_SIZE = 100
+    BATCH_SIZE = 1
 
-    output = gen_output_folder(OUTPUT, "m", "l", BATCH_SIZE, 224)
+    output = gen_output_folder(OUTPUT, "v19", "l", BATCH_SIZE, 224)
 
-    job = cpu_count()
+    job = 1
 
     #===================
 
-    gen_res50(output, IMG_RESIZE, BATCH_SIZE, job)
+    gen_VGG19(output, IMG_RESIZE, BATCH_SIZE, job)
 
 
 
