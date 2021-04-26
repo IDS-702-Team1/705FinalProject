@@ -72,17 +72,6 @@ The styles we chose for this classification model ranged from the 1400s to 2000s
 | Cubism          | 1900-1920   |
 | Abstract Art    | 1940+  |
 
-1. Renaissance (1400-1600)
-2. Baroque (1600-1750)
-3. Romanticism (1800-1850)
-4. Realism (1850-1860)
-5. Impressionism (1860-1870)
-6. Art Nouveau - Modern (1880-1910)
-7. Expressionalism (1905-1920)
-8. Surrealism (1910-1920)
-9. Cubism (1900-1920)
-10. Abstract Art (1940+)
-
 
 ### Artist Classification
 
