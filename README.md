@@ -19,7 +19,9 @@ We obtained the data from a Kaggle Competition (Painters by Numbers: https://www
   - Job: This parameter shows how many jobs would work in parallel. It should be not larger than the CPU core number. If the value is identical to the CPU core number means the computer is, this task will occupy all computational resources. 
 
 4) The folder **Classification** consists of the main py script that is used to classify paintings into Styles and Artists using XGBoost. The Python Script `artist_classification.py` will load the ResNet50 and VGG16 feature data for artists, split the data into training and testing, train the model using XGBoost, and then run the predictions on the testing data. `style_classification.py` will do similar functionalities as `artist_classification.py` but for the styles data. The Python script `plotting_metrics.py` is used to plot the Confusion Matrix and the ROC Curves.
-5) The folder **notebook** contains rough working of the model training and testing. (It is not the main code in the repo. Just for Reference for the team).
+
+5) The folder **Data Preprocessing** walks through the Data Preprocessing steps we computed for the project.
+6) The folder **notebook** contains rough working of the model training and testing. (It is not the main code in the repo. Just for Reference for the team).
 
 
 ### How to Run the Repo
