@@ -10,7 +10,12 @@ We obtained the data from a Kaggle Competition (Painters by Numbers: https://www
 
 ### How to Use the Repo:
 1) The Folder **Data** consists of the 2 links that redirects you to the AWS s3 bucket. We stored the VGG16 and ResNet50 features in this bucket. We have stored the data on Google Drive as well. 
-2) The Folder **Feature Extraction** consists of the code to extract features from the images via Resnet and VGG16. 
+
+2) The Folder **Feature Extraction** consists of the code to extract features from the images via CNN. The main code is in create_image_feature.py. You can find a series of the function named "gen_*model_name*()" at the bottom of the file. This function can be used directly to generate image features. The meaning of parameter:
+  - Output: The folder used to receive generated features. The function would automatically generate a subfolder with timestamps under the output. 
+  - image_size: Input size of CNN module. The default size is (224, 224). Images that do not follow the size will be resized automatically. 
+  - batch_size: This parameter points out how many image features will be grouped in a small batch file. The size is dependent on the module and computer memory. Recommend value is 50 ~ 200. 
+  - Job: How many jobs would work in parallel. It should not larger than the CPU core number. If the value identical to the CPU core number means the computer is, this task will occupy all computational resources. 
 
 
 
