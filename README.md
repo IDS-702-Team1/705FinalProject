@@ -1,4 +1,4 @@
-# Using Hybrid CNN-XGBoost Classifier for classsifiaction of Fine Art Paintings by Style and Artist
+# Using Hybrid CNN-XGBoost Classifier for Classification of Fine Art Paintings by Style and Artist
 
 This project aims to classify fine-art paintings by their corresponding artists and styles. 
 
