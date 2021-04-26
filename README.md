@@ -27,9 +27,9 @@ We obtained the data from a Kaggle Competition (Painters by Numbers: https://www
 Download all data from S3 in the same repository.
 (Including the Images for feature extraction)
 1) Feature Extraction
-
-
-
+```python
+python create_image_feature.py
+```
 2) Artist Classification
 
 ```python
