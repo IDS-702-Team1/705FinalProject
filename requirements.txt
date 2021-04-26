@@ -1,7 +1,7 @@
 pandas==0.25.3
 numpy==1.17.4
 xgboost==0.90
-tensorflow==1.14.0
+tensorflow
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.0
 tqdm==4.48.2
