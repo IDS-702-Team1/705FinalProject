@@ -9,7 +9,7 @@ We obtained the data from a Kaggle Competition (Painters by Numbers: https://www
 
 
 ## Repo Documentation:
-1) The folder **Data** consists of the 2 links that redirects you to the AWS S3 bucket. We stored the features extracted from VGG16 and ResNet50 in this bucket. We have stored the data on Google Drive as well. 
+1) The folder **Data** consists of the 2 links that redirects you to the AWS S3 bucket. We stored the features extracted from VGG16 and ResNet50 in this bucket as the data cannot be stored on Github (Over 60 GB of Data). We have stored the data on Google Drive as well. 
 
 2) The folder **FeatureExtracting** consists of the code to extract features from the images via CNNs. The main code is in `create_image_feature.py`. You can find a series of the function named "gen_*model_name*()" at the bottom of the file. This function can be used directly to generate image features. The meaning of parameter:
 
