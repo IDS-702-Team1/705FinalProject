@@ -49,7 +49,7 @@ VGG16 Model Architecture:
 
 Resnet50 Model Architecture:
 
-![VGG16](C:\Users\solaris2578\Desktop\VGG16.png)
+![VGG16](https://github.com/IDS-702-Team1/705FinalProject/blob/main/reports/img/ResNet50.png)
 
 
 ### Style Classification
