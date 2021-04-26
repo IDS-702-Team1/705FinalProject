@@ -52,7 +52,7 @@ def plot_confusion_matrix(cf_matrix,title,list_labels):
     plt.show()
 
 
-def plot_roc(model,X_test,y_test):
+def plot_roc(model,X_test,y_test,n_sample):
     y_predproba_test = model.predict_proba(X_test)
 
     #Encoding the Y_test
@@ -79,11 +79,11 @@ def plot_roc(model,X_test,y_test):
     #True Positive Rate
     tpr = dict()
     roc_auc = dict()
-    for i in range(10):
+    for i in range(n_sample):
         fpr[i], tpr[i], _ = roc_curve( onehot_encoded[:, i],y_predproba_test[:, i])
         roc_auc[i] = auc(fpr[i], tpr[i])
 
-    all_fpr = np.unique(np.concatenate([fpr[i] for i in range(10)]))
+    all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_sample)]))
 
     # Then interpolate all ROC curves at this points
     mean_tpr = np.zeros_like(all_fpr)
@@ -91,7 +91,7 @@ def plot_roc(model,X_test,y_test):
         mean_tpr += interp(all_fpr, fpr[i], tpr[i])
 
     # Finally average it and compute AUC
-    mean_tpr /= 10
+    mean_tpr /= n_sample
 
     fpr["macro"] = all_fpr
     tpr["macro"] = mean_tpr
@@ -101,9 +101,11 @@ def plot_roc(model,X_test,y_test):
     # Plot all ROC curves
     plt.figure(figsize=(20,10))
 
-
-    colors = cycle(['aqua', 'darkorange', 'cornflowerblue','red','blue','green','purple','pink','brown','yellow'])
-    for i, color in zip(range(10), colors):
+    if n_sample==10:
+        colors = cycle(['aqua', 'darkorange', 'cornflowerblue','red','blue','green','purple','pink','brown','yellow'])
+    else:
+        colors = cycle(['aqua', 'darkorange', 'cornflowerblue','red','blue','green','purple','pink','brown','yellow','coral','thistle2'])
+    for i, color in zip(range(n_sample), colors):
         plt.plot(fpr[i], tpr[i], color=color, lw=lw,
                  label='ROC curve of {0} (area = {1:0.2f})'
                  ''.format(nld[i], roc_auc[i]))
