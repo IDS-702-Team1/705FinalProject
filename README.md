@@ -3,12 +3,12 @@
 This project aims to classify fine-art paintings by their corresponding artists and styles. 
 
 
-### Data
+## Data
 
 We obtained the data from a Kaggle Competition (Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consists of over 100,000 paintings and has labeled each painting with its respective artist, genre, style and date of creation. 
 
 
-### Repo Documentation:
+## Repo Documentation:
 1) The folder **Data** consists of the 2 links that redirects you to the AWS S3 bucket. We stored the features extracted from VGG16 and ResNet50 in this bucket. We have stored the data on Google Drive as well. 
 
 2) The folder **FeatureExtracting** consists of the code to extract features from the images via CNNs. The main code is in `create_image_feature.py`. You can find a series of the function named "gen_*model_name*()" at the bottom of the file. This function can be used directly to generate image features. The meaning of parameter:
@@ -38,7 +38,7 @@ python artist_classification.py
 ```python
 python style_classification.py
 ```
-### Model Architecture
+## Model Architecture
 
 Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model where the CNN model would extract the painting features and the XGBoost Classifier would classify the paintings into the respective artist/style. Research Papers indicated that this hybrid model is 1) Computationally less expensive and 2) Produce similar/even better results than the original CNN model and hence we decided to use this model. 
 
