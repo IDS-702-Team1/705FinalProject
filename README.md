@@ -5,11 +5,7 @@ This project aims to classify fine-art paintings by their corresponding artists 
 
 ### Data
 
-We obtained the data from a Kaggle Competition (
-
-[Painters by Numbers]: https://www.kaggle.com/c/painter-by-numbers
-
-Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consists of over 100,000 paintings and has labeled each painting with its respective artist, genre, style and date of creation. 
+We obtained the data from a Kaggle Competition (Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consists of over 100,000 paintings and has labeled each painting with its respective artist, genre, style and date of creation. 
 
 
 ### Repo Documentation:
