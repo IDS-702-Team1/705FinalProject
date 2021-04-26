@@ -12,7 +12,7 @@ import numpy as np
 
 
 
-def model_metrics(model,X_test,y_test):
+def model_metrics(model,X_test,y_test, model_counter):
 
     # make predictions for test data
     y_pred_test = model.predict(X_test)
@@ -46,7 +46,7 @@ def model(X_train, X_test, y_train, y_test):
     #XGB Model
     model = XGBClassifier(n_estimators=250, n_jobs=-1)
     model.fit(X_train, y_train)
-    model_metrics(model,X_test,y_test)
+    model_metrics(model,X_test,y_test, model_counter)
 
 
 
@@ -102,4 +102,4 @@ if __name__ == "__main__":
         counter=counter+1
 
     X_traina1, X_testa1, y_traina1, y_testa1 = train_test_split(data_res_art.iloc[:,0:100351], data_res_art[100352], test_size=0.33, stratify=data_res_art[100352])
-    model(X_traina1, X_testa1, y_traina1, y_testa1)
+    model(X_traina1, X_testa1, y_traina1, y_testa1, model_counter)
