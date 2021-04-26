@@ -46,7 +46,9 @@ We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to
 
 
 ![Screen Shot 2021-04-24 at 2 47 34 PM](https://user-images.githubusercontent.com/30974949/115969656-02cb4a80-a50c-11eb-8fc4-37770e8d1ddf.png)
-**Figure 1.** Architecture of Hybrid VGG16-XGBoost Model
+<div align="center">
+# **Figure 1.** Architecture of Hybrid VGG16-XGBoost Model
+</div>
 
 ![VGG16](https://github.com/IDS-702-Team1/705FinalProject/blob/main/reports/img/ResNet50.png)
 **Figure 2.** Architecture of Hybrid VGG16-XGBoost Model
