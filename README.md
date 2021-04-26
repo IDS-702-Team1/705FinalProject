@@ -42,14 +42,14 @@ python style_classification.py
 
 Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model where the CNN model would extract the painting features and the XGBoost Classifier would classify the paintings into the respective artist/style. Research Papers indicated that this hybrid model is 1) Computationally less expensive and 2) Produce similar/even better results than the original CNN model and hence we decided to use this model. 
 
-We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to extract image features.
-VGG16 Model Architecture:
+We decided to use two different CNN networks, namely the VGG-16 and ResNet-50 to extract image features and XGBoost for classification. The architectures are shown below.
+
 
 ![Screen Shot 2021-04-24 at 2 47 34 PM](https://user-images.githubusercontent.com/30974949/115969656-02cb4a80-a50c-11eb-8fc4-37770e8d1ddf.png)
-
-Resnet50 Model Architecture:
+**Figure 1.** Architecture of Hybrid VGG16-XGBoost Model
 
 ![VGG16](https://github.com/IDS-702-Team1/705FinalProject/blob/main/reports/img/ResNet50.png)
+**Figure 2.** Architecture of Hybrid VGG16-XGBoost Model
 
 
 ### Style Classification
