@@ -59,6 +59,19 @@ Figure 2. Architecture of Hybrid VGG16-XGBoost Model
 
 The styles we chose for this classification model ranged from the 1400s to 2000s. They were:
 
+| Painting Style  | Time Period |
+| :---            | :---:       |
+| Renaissance     | 1400-1600   |
+| Baroque         | 1600-1750   |
+| Romanticism     | 1800-1850   |
+| Realism         | 1850-1860   |
+| Impressionism   | 1860-1870   |
+| Art Nouveau     | 1880-1910   |
+| Expressionalism | 1905-1920   |
+| Surrealism      | 1910-1920   |
+| Cubism          | 1900-1920   |
+| Abstract Art    | 1940+  |
+
 1. Renaissance (1400-1600)
 2. Baroque (1600-1750)
 3. Romanticism (1800-1850)
