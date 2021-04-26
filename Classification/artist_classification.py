@@ -36,7 +36,7 @@ def model_metrics(model,X_test,y_test, model_counter):
     plotting_metrics.plot_confusion_matrix(cm_vgg_style,title,list_labels)
 
     #Plot the ROC Curve
-    plotting_metrics.plot_roc(model,X_test,y_test)
+    plotting_metrics.plot_roc(model,X_test,y_test,10)
 
 
 
