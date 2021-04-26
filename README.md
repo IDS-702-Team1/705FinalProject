@@ -8,7 +8,7 @@ This project aims to identify paintings by their respective artists and styles.
 We obtained the data from a Kaggle Competition (Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consisted of over 100,000 paintings and was classified by the respective artist, genre, style and time period. 
 
 
-### How to Use the Repo:
+### Repo Documentation:
 1) The Folder **Data** consists of the 2 links that redirects you to the AWS s3 bucket. We stored the VGG16 and ResNet50 features in this bucket. We have stored the data on Google Drive as well. 
 
 2) The Folder **Feature Extraction** consists of the code to extract features from the images via CNN. The main code is in create_image_feature.py. You can find a series of the function named "gen_*model_name*()" at the bottom of the file. This function can be used directly to generate image features. The meaning of parameter:
@@ -20,10 +20,25 @@ We obtained the data from a Kaggle Competition (Painters by Numbers: https://www
 
 
 4) The Folder **Classification** consists of the main py script that is used to classify paintings into Styles and Artists using XGBoost. The Python Script "artist_classification.py" will load the ResNet50 and VGG16 feature data for artists, split the data into training and testing, train the model using XGBoost, and then run the predictions on the testing data. The "style_classification.py" will do similar functionalities as "artist_classification.py" but for the styles data. The Python script "plotting_metrics.py" is used to plot the Confusion Matrix and the ROC Curves.
-5) 
+5) The Folder **Notebooks** contain rough working of the model training and testing. (Is not the main code in the repo. Just for Reference for the team)
+
+
+### How to Run the Repo
+Download all data from S3 in the same repository.
+(Including the Images for feature extraction)
+1) Feature Extraction
 
 
 
+2) Artist Classification
+
+```python
+python artist_classification.py
+```
+3) Style Classification
+```python
+python style_classification.py
+```
 ### Model Architecture
 
 Upon reading research papers, we decided to implement a Hybrid CNN-XGBoost Model where the CNN model would extract the painting features and the XGBoost Classifier would classify the paintings into the respective artist/style. Research Papers indicated that this hybrid model is 1) Computationally less expensive and 2) Produce similar/even better results than the original CNN model and hence we decided to use this model. 
