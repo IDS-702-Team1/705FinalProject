@@ -1,26 +1,29 @@
-# 705FinalProject
+# Using CNN to Classify Fine Art Paintings by Style and Artist
 
-This project aims to identify paintings by their respective artists and styles. 
+This project aims to classify fine-art paintings by their corresponding artists and styles. 
 
 
 ### Data
 
-We obtained the data from a Kaggle Competition (Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consisted of over 100,000 paintings and was classified by the respective artist, genre, style and time period. 
+We obtained the data from a Kaggle Competition (
+
+[Painters by Numbers]: https://www.kaggle.com/c/painter-by-numbers
+
+Painters by Numbers: https://www.kaggle.com/c/painter-by-numbers). The dataset consists of over 100,000 paintings and has labeled each painting with its respective artist, genre, style and date of creation. 
 
 
 ### Repo Documentation:
-1) The Folder **Data** consists of the 2 links that redirects you to the AWS s3 bucket. We stored the VGG16 and ResNet50 features in this bucket. We have stored the data on Google Drive as well. 
+1) The folder **Data** consists of the 2 links that redirects you to the AWS S3 bucket. We stored the features extracted from VGG16 and ResNet50 in this bucket. We have stored the data on Google Drive as well. 
 
-2) The Folder **Feature Extraction** consists of the code to extract features from the images via CNN. The main code is in create_image_feature.py. You can find a series of the function named "gen_*model_name*()" at the bottom of the file. This function can be used directly to generate image features. The meaning of parameter:
+2) The folder **FeatureExtracting** consists of the code to extract features from the images via CNNs. The main code is in `create_image_feature.py`. You can find a series of the function named "gen_*model_name*()" at the bottom of the file. This function can be used directly to generate image features. The meaning of parameter:
+
   - Output: The folder used to receive generated features. The function would automatically generate a subfolder with timestamps under the output. 
-  - image_size: Input size of CNN module. The default size is (224, 224). Images that do not follow the size will be resized automatically. 
-  - batch_size: This parameter points out how many image features will be grouped in a small batch file. The size is dependent on the module and computer memory. Recommend value is 50 ~ 200. 
-  - Job: How many jobs would work in parallel. It should not larger than the CPU core number. If the value identical to the CPU core number means the computer is, this task will occupy all computational resources. 
+  - image_size: Input size of CNN module. The default size is $224 \times 224$. Images that do not follow the size will be resized automatically. 
+  - batch_size: This parameter represents how many image features will be grouped in a small batch file. The size is dependent on the module and computer memory. Recommend value is 50 ~ 200. 
+  - Job: This parameter shows how many jobs would work in parallel. It should be not larger than the CPU core number. If the value is identical to the CPU core number means the computer is, this task will occupy all computational resources. 
 
-
-
-4) The Folder **Classification** consists of the main py script that is used to classify paintings into Styles and Artists using XGBoost. The Python Script "artist_classification.py" will load the ResNet50 and VGG16 feature data for artists, split the data into training and testing, train the model using XGBoost, and then run the predictions on the testing data. The "style_classification.py" will do similar functionalities as "artist_classification.py" but for the styles data. The Python script "plotting_metrics.py" is used to plot the Confusion Matrix and the ROC Curves.
-5) The Folder **Notebooks** contain rough working of the model training and testing. (Is not the main code in the repo. Just for Reference for the team)
+4) The folder **Classification** consists of the main py script that is used to classify paintings into Styles and Artists using XGBoost. The Python Script `artist_classification.py` will load the ResNet50 and VGG16 feature data for artists, split the data into training and testing, train the model using XGBoost, and then run the predictions on the testing data. `style_classification.py` will do similar functionalities as `artist_classification.py` but for the styles data. The Python script `plotting_metrics.py` is used to plot the Confusion Matrix and the ROC Curves.
+5) The folder **notebook** contains rough working of the model training and testing. (It is not the main code in the repo. Just for Reference for the team).
 
 
 ### How to Run the Repo
@@ -50,8 +53,7 @@ VGG16 Model Architecture:
 
 Resnet50 Model Architecture:
 
-![Screen Shot 2021-04-24 at 2 48 43 PM](https://user-images.githubusercontent.com/30974949/115969686-2bebdb00-a50c-11eb-816d-80c472057601.png)
-###
+![VGG16](C:\Users\solaris2578\Desktop\VGG16.png)
 
 
 ### Style Classification
